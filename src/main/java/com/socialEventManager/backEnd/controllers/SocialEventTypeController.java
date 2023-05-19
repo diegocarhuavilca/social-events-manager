@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("social-event-type")
-    public class SocialEventTypeController {
+public class SocialEventTypeController {
 
     @Autowired
     private SocialEventTypeService socialEventTypeService;
