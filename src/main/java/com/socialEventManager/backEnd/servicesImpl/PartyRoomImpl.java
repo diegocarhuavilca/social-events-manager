@@ -1,5 +1,6 @@
 package com.socialEventManager.backEnd.servicesImpl;
 
+import com.socialEventManager.backEnd.models.ExtraPartyRoom;
 import com.socialEventManager.backEnd.models.PartyRoom;
 import com.socialEventManager.backEnd.models.SocialEventType;
 import com.socialEventManager.backEnd.repositories.PartyRoomRepository;
@@ -53,6 +54,29 @@ public class PartyRoomImpl implements PartyRoomService {
         }
         else{
             throw new ResourceNotFoundException("Record not found with id : " + partyRoomId);
+        }
+    }
+
+    @Override
+    public List<ExtraPartyRoom> getAllExtrasPartyRoomById(String partyRoomId) {
+        PartyRoom partyDb = this.partyRoomRepository.findAllExtrasOfPartyRoomById(partyRoomId);
+        if(partyDb == null){
+            throw new ResourceNotFoundException("Record not found with id : " + partyRoomId);
+        }else{
+            return partyDb.getExtras();
+        }
+    }
+
+    @Override
+    public ExtraPartyRoom getExtraPartyRoomByPartyRoomId(String partyRoomId, String extraPartyRoomId) {
+        List<ExtraPartyRoom> extrasPartyRoom = this.getAllExtrasPartyRoomById(partyRoomId);
+        ExtraPartyRoom extraPartyRoomFiltered = extrasPartyRoom.stream().filter(extraPartyRoom ->
+                (extraPartyRoom.getId().equals(extraPartyRoomId))
+        ).findFirst().orElse(null);
+        if (extraPartyRoomFiltered == null){
+            throw new ResourceNotFoundException("Record not found with id : " + partyRoomId);
+        }else{
+            return extraPartyRoomFiltered;
         }
     }
 }

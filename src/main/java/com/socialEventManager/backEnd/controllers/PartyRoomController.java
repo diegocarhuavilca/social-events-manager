@@ -1,7 +1,7 @@
 package com.socialEventManager.backEnd.controllers;
 
+import com.socialEventManager.backEnd.models.ExtraPartyRoom;
 import com.socialEventManager.backEnd.models.PartyRoom;
-import com.socialEventManager.backEnd.models.SocialEventType;
 import com.socialEventManager.backEnd.services.PartyRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,4 +35,15 @@ public class PartyRoomController {
     public ResponseEntity<PartyRoom> createPartyRoom(@RequestBody PartyRoom partyRoom){
         return ResponseEntity.ok().body(partyRoomService.createPartyRoom(partyRoom));
     }
+
+    @GetMapping("/{partyRoomId}/extras")
+    public ResponseEntity<List<ExtraPartyRoom>> getExtrasPartyRoomById (@PathVariable String partyRoomId){
+        return ResponseEntity.ok().body(partyRoomService.getAllExtrasPartyRoomById(partyRoomId));
+    }
+
+    @GetMapping("/{partyRoomId}/extras/{partyRoomExtraId}")
+    public ResponseEntity<ExtraPartyRoom> getExtraByIdAndPartyRoomById (@PathVariable String partyRoomId, @PathVariable String partyRoomExtraId){
+        return ResponseEntity.ok().body(partyRoomService.getExtraPartyRoomByPartyRoomId(partyRoomId,partyRoomExtraId));
+    }
+
 }
