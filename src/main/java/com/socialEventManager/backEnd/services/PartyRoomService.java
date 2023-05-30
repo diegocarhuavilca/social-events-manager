@@ -13,4 +13,5 @@ public interface PartyRoomService {
     PartyRoom deletePartyRoomById(String partyRoomId);
     List<ExtraPartyRoom> getAllExtrasPartyRoomById(String partyRoomId);
     ExtraPartyRoom getExtraPartyRoomByPartyRoomId(String partyRoomId, String extraPartyRoomId);
+    List<ExtraPartyRoom> addExtraPartyRoom(String partyRoomId,ExtraPartyRoom extraPartyRoom);
 }

@@ -15,4 +15,12 @@ public class ExtraPartyRoom {
     private String description;
     private String mainPhoto;
     private List<String> secondaryPhotos;
+
+    public ExtraPartyRoom(String id, String name, String description, String mainPhoto, List<String> secondaryPhotos) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.mainPhoto = mainPhoto;
+        this.secondaryPhotos = secondaryPhotos;
+    }
 }

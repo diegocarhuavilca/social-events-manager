@@ -8,7 +8,13 @@ import com.socialEventManager.backEnd.repositories.SocialEventTypeRepository;
 import com.socialEventManager.backEnd.services.PartyRoomService;
 import com.socialEventManager.backEnd.services.SocialEventTypeService;
 import com.socialEventManager.backEnd.utils.ResourceNotFoundException;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +27,8 @@ public class PartyRoomImpl implements PartyRoomService {
 
     @Autowired
     private PartyRoomRepository partyRoomRepository;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public List<PartyRoom> getAllPartyRooms() {
@@ -78,5 +86,15 @@ public class PartyRoomImpl implements PartyRoomService {
         }else{
             return extraPartyRoomFiltered;
         }
+    }
+
+    @Override
+    public List<ExtraPartyRoom> addExtraPartyRoom(String partyRoomId, ExtraPartyRoom extraPartyRoom) {
+        ObjectId objectId = new ObjectId();
+        ExtraPartyRoom extraParty = new ExtraPartyRoom(objectId.toString(),extraPartyRoom.getName(),extraPartyRoom.getDescription(),extraPartyRoom.getMainPhoto(),extraPartyRoom.getSecondaryPhotos());
+        Query query = new Query().addCriteria(Criteria.where("_id").is(partyRoomId));
+        Update addExtra = new Update().addToSet("extras",extraParty);
+        FindAndModifyOptions options = new FindAndModifyOptions().returnNew(true).upsert(true);
+        return this.mongoTemplate.findAndModify(query,addExtra,options, PartyRoom.class).getExtras();
     }
 }

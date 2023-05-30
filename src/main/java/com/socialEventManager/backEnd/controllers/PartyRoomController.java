@@ -46,4 +46,9 @@ public class PartyRoomController {
         return ResponseEntity.ok().body(partyRoomService.getExtraPartyRoomByPartyRoomId(partyRoomId,partyRoomExtraId));
     }
 
+    @PostMapping("/{partyRoomId}/extras")
+    public ResponseEntity<List<ExtraPartyRoom>> addExtraPartyRoom (@PathVariable String partyRoomId, @RequestBody ExtraPartyRoom extraPartyRoom){
+        return ResponseEntity.ok().body(partyRoomService.addExtraPartyRoom(partyRoomId,extraPartyRoom));
+    }
+
 }
