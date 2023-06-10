@@ -31,7 +31,7 @@ public class FirebaseService {
     }
 
     @Async
-    public CompletableFuture<String> uploadImage(MultipartFile imageFile, String directory) throws IOException {
+    public CompletableFuture<String> uploadImage(MultipartFile imageFile, String directory) throws IOException,IOException, InterruptedException  {
 
         String imageName = generateUniqueImageName();
 
