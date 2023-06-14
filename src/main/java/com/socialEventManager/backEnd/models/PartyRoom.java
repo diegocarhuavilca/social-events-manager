@@ -19,8 +19,9 @@ public class PartyRoom {
     private String mainPhoto;
     private List<String> secondaryPhotos;
     private List<ExtraPartyRoom> extras;
+    private Boolean active;
 
-    public PartyRoom(String name, String description, String address, String district, String mainPhoto, List<String> secondaryPhotos, List<ExtraPartyRoom> extras) {
+    public PartyRoom(String name, String description, String address, String district, String mainPhoto, List<String> secondaryPhotos, List<ExtraPartyRoom> extras,Boolean active) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -28,6 +29,7 @@ public class PartyRoom {
         this.mainPhoto = mainPhoto;
         this.secondaryPhotos = secondaryPhotos;
         this.extras = extras;
+        this.active = active;
     }
 }
 
